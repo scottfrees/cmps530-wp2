@@ -1,0 +1,7 @@
+md5: 7ecf40fe15b2f22112c3aba839ffa008
+outs:
+- md5: e7ef776b2011f770e8f6d2fbccedc11a
+  path: frequently-rated.json
+  cache: true
+  metric: false
+  persist: false
