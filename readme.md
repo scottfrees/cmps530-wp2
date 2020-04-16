@@ -75,6 +75,16 @@ Once you've loaded your dictionary (key are movie ids) of dictionaries (one dict
 
 4. Some movies don't have any genres - make sure each movie that has no genres correctly has an empty list in it's genres property.
 
+5. You want to convert years from strings to integers.  The below code might be helpful, given that sometimes you aren't sure if you have an integer or not.
+
+```python
+def intTryParse(value):
+    try:
+        return int(value), True
+    except ValueError:
+        return value, False
+```
+
 ### Part 1: Average Ratings and Number of Genres
 Some movies have no genres, others have one, and others have many assigned to them.  Group movies into categories based on the number of genres assigned to them (i.e. 0, 1, 2, 3,....) and compute the **average** rating of movies in each category.  Output this data as a **csv** file, where the first column is the number of genres and the second column is the average movie rating.
 
