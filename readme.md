@@ -1,7 +1,7 @@
 # Weekly Project 2
 This week's project will have you analyze a large data set consisting of movies, tags applied to movies (descriptive), and user entered ratings.  The data set is commonly used in Machine Learning based recommendation systems (think Netflix).  You will compute three different result sets from the data.
 
-This is a somewhat open-ended assignment in terms of *how your code* is structured - however my recommendation is to use make smart use of lists, dictionaries, and many of the other programming structures you've been learning/reviewing this week.  **The only restriction for this week is that I ask you not to use `numpy`, `pandas`, or any other Python library beyond `csv`, `json`, and `statistics` for [computing the mean of a list](https://docs.python.org/3/library/statistics.html).**
+This is a somewhat open-ended assignment in terms of *how your code* is structured - however my recommendation is to make smart use of lists, dictionaries, and many of the other programming structures you've been learning/reviewing this week.  **The only restriction for this week is that I ask you not to use `numpy`, `pandas`, or any other Python library beyond `csv`, `json`, and `statistics` for [computing the mean of a list](https://docs.python.org/3/library/statistics.html).**
 
 ## Get the project
 From your terminal / command line, navigate to a directory where you'd like to store your work.  Then, clone the assignment's github repository and `cd` into the directory to begin working.
