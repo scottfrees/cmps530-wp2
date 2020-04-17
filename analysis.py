@@ -7,6 +7,13 @@ ratings_file = "data/ratings.csv"
 frequent_threshold = 10000
 
 
+def find_movie(movies, id):
+    for movie in movies:
+        if movie["id"] == id:
+            return movie
+    return None
+
+
 def intTryParse(value):
     try:
         return int(value), True
@@ -39,55 +46,56 @@ def make_movie_dictionary(row):
     }
 
 
-def find_movie_by_id(movies, id):
-    for movie in movies:
-        if movie["id"] == id:
-            return movie
-    return None
-
-
-print("Loading movies...")
+start = time.time()
 movies = list()
 with open("data/movies.csv", "r") as csvfile:
     next(csvfile)
     movie_reader = csv.reader(csvfile)
+    i = 0
     for row in movie_reader:
         movie = make_movie_dictionary(row)
         movies.append(movie)
+        print("Loaded movies ", i, end="\r")
+        i += 1
+now = time.time()
+print("Time to load", i, " movies:  ", str(now - start), "seconds")
 
-
-print("Loading ratings...")
 start = time.time()
 with open(ratings_file, "r") as csvfile:
     next(csvfile)
     ratings_reader = csv.reader(csvfile)
+    i = 0
     for row in ratings_reader:
         movie_id = row[1]
-        movie = find_movie_by_id(movies, movie_id)
+        movie = find_movie(movies, movie_id)
         if movie == None:
             print("NO MOVIE")
         else:
             ratings = movie["ratings"]
             ratings.append(float(row[2]))
+        print("Loaded ratings ", i, end="\r")
+        i += 1
 now = time.time()
-print("Time to load ratings:  ", str(now - start), "seconds")
+print("Time to load", i, " ratings:  ", str(now - start), "seconds")
 
-print("Loading tags...")
 start = time.time()
 with open("data/tags.csv", "r") as csvfile:
     next(csvfile)
     tags_reader = csv.reader(csvfile)
+    i = 0
     for row in tags_reader:
         movie_id = row[1]
-        movie = find_movie_by_id(movies, movie_id)
+        movie = find_movie(movies, movie_id)
         if movie == None:
             print("NO MOVIE")
         else:
             tags = movie["tags"]
             if row[2] not in tags:
                 tags.append(row[2])
+        print("Loaded tags ", i, end="\r")
+        i += 1
 now = time.time()
-print("Time to load tags:  ", str(now - start), "seconds")
+print("Time to load ", i, " tags:  ", str(now - start), "seconds")
 
 print("Calculating average ratings for each movie...")
 for movie in movies:
@@ -100,6 +108,7 @@ for movie in movies:
 #####################################################
 ##  Genre Stats
 #####################################################
+print("Calculating genre stats...")
 genre_stats = dict()
 for movie in [m for m in movies if m["average_rating"] != None]:
     num = str(len(movie["genres"]))
@@ -119,6 +128,7 @@ with open("solution/genre-ratings.csv", "w", newline="") as csvfile:
 #####################################################
 # Tags
 #####################################################
+print("Calculating tags stats...")
 tags = dict()
 for movie in [m for m in movies if m["average_rating"] != None]:
     for tag in movie["tags"]:
@@ -145,8 +155,9 @@ with open("solution/top-tags.csv", "w", newline="") as csvfile:
 #####################################################
 # Frequently Rated
 #####################################################
+print("Calculating frequently rated movies...")
 movie_list = sorted(
-    [m for m in movies if len(m["ratings"]) >= frequent_threshold],
+    [m for m in movies.values() if len(m["ratings"]) >= frequent_threshold],
     key=lambda k: (k["average_rating"], k["year"], k["title"]),
     reverse=True,
 )
