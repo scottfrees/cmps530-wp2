@@ -1,6 +1,7 @@
 import csv
 import json
 import statistics
+import time
 
 ratings_file = "data/ratings.csv"
 frequent_threshold = 10000
@@ -49,6 +50,7 @@ with open("data/movies.csv", "r") as csvfile:
 
 
 print("Loading ratings...")
+start = time.time()
 with open(ratings_file, "r") as csvfile:
     next(csvfile)
     ratings_reader = csv.reader(csvfile)
@@ -60,9 +62,11 @@ with open(ratings_file, "r") as csvfile:
         else:
             ratings = movie["ratings"]
             ratings.append(float(row[2]))
-
+now = time.time()
+print("Time to load ratings:  ", str(now - start), "seconds")
 
 print("Loading tags...")
+start = time.time()
 with open("data/tags.csv", "r") as csvfile:
     next(csvfile)
     tags_reader = csv.reader(csvfile)
@@ -75,7 +79,8 @@ with open("data/tags.csv", "r") as csvfile:
             tags = movie["tags"]
             if row[2] not in tags:
                 tags.append(row[2])
-
+now = time.time()
+print("Time to load tags:  ", str(now - start), "seconds")
 
 print("Calculating average ratings for each movie...")
 for movie in movies.values():
