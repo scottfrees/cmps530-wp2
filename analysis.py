@@ -39,14 +39,21 @@ def make_movie_dictionary(row):
     }
 
 
+def find_movie_by_id(movies, id):
+    for movie in movies:
+        if movie["id"] == id:
+            return movie
+    return None
+
+
 print("Loading movies...")
-movies = dict()
+movies = list()
 with open("data/movies.csv", "r") as csvfile:
     next(csvfile)
     movie_reader = csv.reader(csvfile)
     for row in movie_reader:
         movie = make_movie_dictionary(row)
-        movies[movie["id"]] = movie
+        movies.append(movie)
 
 
 print("Loading ratings...")
@@ -56,7 +63,7 @@ with open(ratings_file, "r") as csvfile:
     ratings_reader = csv.reader(csvfile)
     for row in ratings_reader:
         movie_id = row[1]
-        movie = movies[movie_id]
+        movie = find_movie_by_id(movies, movie_id)
         if movie == None:
             print("NO MOVIE")
         else:
@@ -72,7 +79,7 @@ with open("data/tags.csv", "r") as csvfile:
     tags_reader = csv.reader(csvfile)
     for row in tags_reader:
         movie_id = row[1]
-        movie = movies[movie_id]
+        movie = find_movie_by_id(movies, movie_id)
         if movie == None:
             print("NO MOVIE")
         else:
@@ -83,7 +90,7 @@ now = time.time()
 print("Time to load tags:  ", str(now - start), "seconds")
 
 print("Calculating average ratings for each movie...")
-for movie in movies.values():
+for movie in movies:
     if len(movie["ratings"]) > 0:
         movie["average_rating"] = statistics.mean(movie["ratings"])
     else:
@@ -94,7 +101,7 @@ for movie in movies.values():
 ##  Genre Stats
 #####################################################
 genre_stats = dict()
-for movie in [m for m in movies.values() if m["average_rating"] != None]:
+for movie in [m for m in movies if m["average_rating"] != None]:
     num = str(len(movie["genres"]))
     if num in genre_stats:
         genre_stats[num].append(movie["average_rating"])
@@ -113,7 +120,7 @@ with open("solution/genre-ratings.csv", "w", newline="") as csvfile:
 # Tags
 #####################################################
 tags = dict()
-for movie in [m for m in movies.values() if m["average_rating"] != None]:
+for movie in [m for m in movies if m["average_rating"] != None]:
     for tag in movie["tags"]:
         if tag in tags:
             tags[tag].append(movie["average_rating"])
@@ -139,7 +146,7 @@ with open("solution/top-tags.csv", "w", newline="") as csvfile:
 # Frequently Rated
 #####################################################
 movie_list = sorted(
-    [m for m in movies.values() if len(m["ratings"]) >= frequent_threshold],
+    [m for m in movies if len(m["ratings"]) >= frequent_threshold],
     key=lambda k: (k["average_rating"], k["year"], k["title"]),
     reverse=True,
 )
