@@ -1,7 +1,3 @@
-md5: 5b5fa29c50c5c4cb5d02ad6439d7f041
 outs:
-- md5: 80fd7c4779ebd14dc0b2d4eeb5994170
+- md5: f268bd207e5218cac553a4c8a8a95d32
   path: genre-ratings.csv
-  cache: true
-  metric: false
-  persist: false

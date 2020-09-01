@@ -1,7 +1,3 @@
-md5: 28d4d25e5ac92a423eb7e89e3249bca7
 outs:
-- md5: aa3e8b6c9c2ed53d1e699071a2e82494
+- md5: 8ac950b616066b51f783d396c701168f
   path: frequently-rated.csv
-  cache: true
-  metric: false
-  persist: false
