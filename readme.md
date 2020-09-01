@@ -85,7 +85,7 @@ def intTryParse(value):
         return value, False
 ```
 
-### Part 1: Average Ratings and Number of Genres  [CHECKED]
+### Part 1: Average Ratings and Number of Genres  
 Some movies have no genres, others have one, and others have many assigned to them.  Group movies into categories based on the number of genres assigned to them (i.e. 0, 1, 2, 3,....) and compute the **average** rating of movies in each category.  Output this data as a **csv** file, where the first column is the number of genres and the second column is the average movie rating.
 
 Remember, there were some movies that didn't have any ratings.  Be very careful with these - they should not contribute to the average rating within a genre category!
@@ -94,7 +94,7 @@ Remember, there were some movies that didn't have any ratings.  Be very careful 
 
 **I have provided you with the correct output**, compare your output to `solution/genre-ratings.csv`.
 
-### Part 2:   Top Rated Tags  [CHECKED]
+### Part 2:   Top Rated Tags
 Most movies have tags associated with them.  For this analysis, you need to pivot the data, and calculate the average movie rating for each tag.  Calculate average rating using the same method as in Part 2 - take the average of the average ratings on each movie.  Filter the data to include only tags associated with 100 or more movies (which have ratings), and output to top 20 tags in a CSV file, sorted (highest to lowest) by average rating.
 
 **Tip**:  Create a dictionary to hold tags and a list of ratings (the average rating of each movie with the given tag).  Cycle through each movie, each tag within each movie.  For each tag, look it up in the dictionary.  If present, add the movie's rating to the list associated with the tag.  If not, add the tag to the dictionary with a list containing the single movie's rating.
