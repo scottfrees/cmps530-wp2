@@ -80,9 +80,9 @@ Once you've loaded your dictionary (key are movie ids) of dictionaries (one dict
 ```python
 def intTryParse(value):
     try:
-        return int(value), True
+        return int(value)
     except ValueError:
-        return value, False
+        return 0 # if the year can't be parsed, just return 0
 ```
 
 ### Part 1: Average Ratings and Number of Genres  
